@@ -95,3 +95,4 @@ int main()
     cout<<"TRACEBACK"<<endl;
     traceback(s,1,n);
 }
+//O(n^3)
