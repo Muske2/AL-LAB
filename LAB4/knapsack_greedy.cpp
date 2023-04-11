@@ -9,7 +9,7 @@ struct Knapsack
 };
 bool greedybyweight(Knapsack a ,Knapsack b)
 {
-    return a.weight>b.weight;
+    return a.weight<b.weight;
 }
 bool greedybyprofit(Knapsack a,Knapsack b)
 {
