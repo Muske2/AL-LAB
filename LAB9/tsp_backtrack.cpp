@@ -1,44 +1,44 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
-#define V 100
-
-void tsp(int graph[][V], bool v[], int currPos, int n, int count, int cost, int& ans)
+#define V 20
+void tsp(int graph[][V],bool visited[],int n,int count,int cost,int curindex,int &ans)
 {
-    if (count == n && graph[currPos][0])
+    if(n==count && graph[curindex][0])
     {
-        ans = min(ans, cost + graph[currPos][0]);
+        ans=min(ans,cost+graph[curindex][0]);
         return;
     }
-    for (int i = 0; i < n; i++)
+    for(int i=0;i<n;i++)
     {
-        if (!v[i] && graph[currPos][i])
+        if(!visited[i] && graph[curindex][i])
         {
-            v[i] = true;
-            tsp(graph, v, i, n, count + 1, cost + graph[currPos][i], ans);
-            v[i] = false;
+            visited[i]=true;
+            tsp(graph,visited,n,count+1,cost+graph[curindex][i],i,ans);
+            visited[i]=false;
         }
     }
 }
 int main()
 {
-    int verts;
-    cout << "NUMBER OF CITIES" << endl;
-    cin >> verts ;
-    int graph[V][V];
-    cout<<"enter adj matrix of cities"<<endl;
-    for(int i=0; i<verts; i++)
+    int v,graph[V][V];
+    cout<<"Enter number of cities: "<<endl;
+    cin>>v;
+    cout<<"Enter adjacency matrix: "<<endl;
+    for(int i=0;i<v;i++)
     {
-        for(int j=0; j<verts; j++)
+        for(int j=0;j<v;j++)
         {
             cin>>graph[i][j];
         }
     }
-    bool v[V];
-    for (int i = 0; i < verts; i++)
-        v[i] = false;
-    v[0] = true;
-    int ans = INT_MAX;
-    tsp(graph, v, 0, verts, 1, 0, ans);
-    cout << ans;
-    return 0;
+    bool visited[v];
+    int ans=999;
+    for(int i=0;i<v;i++)
+    {
+        visited[i]=false;
+    }
+    visited[0]=true;
+    tsp(graph,visited,v,1,0,0,ans);
+    cout<<"Total cost: "<<ans<<endl;
 }
