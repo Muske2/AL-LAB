@@ -1,67 +1,61 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
+#define MAX 20
 using namespace std;
-vector<int> vertices;
-const int MAX = 100;
-int store[MAX], n;
-int graph[MAX][MAX];
-int d[MAX];
-bool is_clique(int b)
+int graph[MAX][MAX],d[MAX],n,store[MAX];
+vector<int>vertices;
+bool isclique(int b)
 {
-    int i;
-    for (i = 1; i < b; i++)
+    for(int i=1;i<b;i++)
     {
-        for (int j = i + 1; j < b; j++)
-            if (graph[store[i]][store[j]] == 0)
-                return false;
-    }
-    vertices.push_back(store[b-1]);
-    return true;
-}
-
-int maxCliques(int i, int l)
-{
-    int max_ = 0;
-    for (int j = i + 1; j <= n; j++)
-    {
-        store[l] = j;
-        if (is_clique(l + 1))
+        for(int j=i+1;j<b;j++)
         {
-            max_ = max(max_, l);
-            max_ = max(max_, maxCliques(j, l + 1));
+            if(graph[store[i]][store[j]]==0)
+            {
+                return false;
+            }
         }
     }
-    return max_;
+    vertices.push_back(b-1);
+    return true;
+}
+int maxclique(int i,int l)
+{
+    int maxval=0;
+    for(int j=i+1;j<=n;j++)
+    {
+        store[l]=j;
+        if(isclique(l+1))
+        {
+            maxval=max(maxval,l);
+            maxval=max(maxval,maxclique(j,l+1));
+        }
+    }
+    return maxval;
 }
 int main()
 {
-    int edges[20][2]={0},e,src,dest,x;
+    int src,dest,x;
     cout<<"Enter number of edges: "<<endl;
-    cin>>e;
-    n=e;
-    for(int i=0;i<e;i++)
+    cin>>n;
+    for(int i=0;i<n;i++)
     {
-        cout<<"Enter src: "<<endl;
+        cout<<"Enter source: "<<endl;
         cin>>src;
-        cout<<"Enter dest: "<<endl;
+        cout<<"Enter destination: "<<endl;
         cin>>dest;
-        edges[i][0]=src;
-        edges[i][1]=dest;
+        graph[src][dest]=1;
+        graph[dest][src]=1;
+        d[src]++;
+        d[dest]++;
     }
-    for (int i = 0; i < e; i++)
-    {
-        graph[edges[i][0]][edges[i][1]] = 1;
-        graph[edges[i][1]][edges[i][0]] = 1;
-        d[edges[i][0]]++;
-        d[edges[i][1]]++;
-    }
-    x=maxCliques(0,1);
+    x=maxclique(0,1);
     cout<<"MAX CLIQUE: "<<x<<endl;
-    vertices.resize(x);
+   vertices.resize(x);
      cout << "Clique vertices: ";
     for (int i = 0; i < vertices.size(); i++)
     {
         cout << vertices[i] << " ";
     }
     cout << endl;
-    return 0;
 }
