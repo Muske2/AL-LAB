@@ -32,7 +32,7 @@ int maxCliques(int i, int l)
 }
 int main()
 {
-    int edges[20][2]={0},v,e,src,dest,x;
+    int edges[20][2]={0},v,e,src,dest;
     cout<<"Enter number of vertices: "<<endl;
     cin>>v;
     cout<<"Enter number of edges: "<<endl;
@@ -54,6 +54,6 @@ int main()
         d[edges[i][0]]++;
         d[edges[i][1]]++;
     }
-    cout<<maxCliques(0,1);
+    cout<<"MAX CLIQUE: "<<maxCliques(0,1)<<endl;
     return 0;
 }
