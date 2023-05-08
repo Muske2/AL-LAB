@@ -4,7 +4,6 @@ vector<int> vertices;
 const int MAX = 100;
 int store[MAX], n;
 int graph[MAX][MAX];
-int d[MAX];
 bool is_clique(int b)
 {
     int i;
@@ -51,8 +50,6 @@ int main()
     {
         graph[edges[i][0]][edges[i][1]] = 1;
         graph[edges[i][1]][edges[i][0]] = 1;
-        d[edges[i][0]]++;
-        d[edges[i][1]]++;
     }
     x=maxCliques(0,1);
     cout<<"MAX CLIQUE: "<<x<<endl;
